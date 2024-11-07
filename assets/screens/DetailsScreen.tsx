@@ -39,7 +39,6 @@ const DetailsScreen = ({ route, navigation }) => {
         );
     };
     const handleUpdateDetails = () => {
-        // Navigate to an Update screen with the current member data
         navigation.navigate('UpdateScreen', { member });
     };
 
@@ -81,7 +80,7 @@ const DetailsScreen = ({ route, navigation }) => {
             <View style={styles.buttonContainer}>
 
                 <TouchableOpacity onPress={handleUpdateDetails} style={styles.updateButton}>
-                    <Icon name="pencil" size={20} color="#00ACC1" />
+                    <Icon name="pencil" size={20} color="white" />
                     <Text style={styles.updateButtonText}>Update Details</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleDeleteDetails} style={styles.deleteButton}>
@@ -126,9 +125,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         marginVertical: 10,
-        marginLeft: 'auto'
     },
     deleteButton: {
         flexDirection: 'row',
@@ -137,7 +134,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 10,
         alignItems: 'center',
-        width: '48%',
+        width: '45%',
+        marginLeft: 'auto'
     },
     deleteButtonText: {
         fontSize: 16,
@@ -147,17 +145,17 @@ const styles = StyleSheet.create({
     },
     updateButton: {
         flexDirection: 'row',
-        backgroundColor: '#E0F7FA',
+        backgroundColor: '#00ACC1',
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 10,
         alignItems: 'center',
-        width: '48%', 
+        width: '45%', 
     },
     updateButtonText: {
         fontSize: 16,
         fontWeight: '500',
-        color: '#00ACC1',
+        color: 'white',
         marginLeft: 5,
     },
 });
