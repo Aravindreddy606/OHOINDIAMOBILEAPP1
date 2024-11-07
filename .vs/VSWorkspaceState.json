@@ -6,6 +6,9 @@
     "\\src",
     "\\src\\config"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\assets\\screens\\UpdateScreen.tsx",
+=======
+>>>>>>> 863f29c (Added update)
   "PreviewInSolutionExplorer": false
 }
