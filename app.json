@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "VehicleInsurance",
-    "slug": "VehicleInsurance",
+    "slug": "vehicleinsurance",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +23,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "08174e60-85d9-4bb5-a0c4-8cccca6648ed"
+      }
     }
   }
 }

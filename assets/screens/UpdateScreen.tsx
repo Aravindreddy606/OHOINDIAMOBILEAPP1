@@ -1,6 +1,6 @@
 // UpdateScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { fetchUpdateData } from '../../src/helpers/externalapi';
@@ -16,33 +16,47 @@ const UpdateScreen = ({ route, navigation }) => {
     const [endDate, setEndDate] = useState(new Date(member.EndDate));
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+    const [loading, setLoading] = useState(false);  
+
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
 
     const handleUpdateDetails = async () => {
+        setLoading(true); 
         try {
-            const updatedData = {
-                FullName: fullName,
-                MobileNumber: mobileNumber,
-                InsuranceProvider: insuranceProvider,
-                VechicleNo: vehicleNumber,
-                StartDate: startDate.toISOString(),
-                EndDate: endDate.toISOString(),
-            };
-
-            const response = await fetchUpdateData(`apiLambda/VehicleInsurance/update/${member.VehicleInsuranceId}`, updatedData);
-            if (response.status) {
+          
+            const response = await fetchUpdateData('apiLambda/VehicleInsurance/update', {
+                "vehicleInsuranceId": member.VehicleInsuranceId,
+                "fullName": fullName,
+                "mobileNumber": mobileNumber,
+                "insuranceProvider": insuranceProvider,
+                "startDate": formatDate(startDate), 
+                "endDate": formatDate(endDate),
+                "VechicleNo": vehicleNumber
+            });
+            console.log('RESPONSE', response);
+            if (response) {
                 Alert.alert('Success', response.message);
-                navigation.goBack();
-            } else {
-                Alert.alert('Update Failed', response.message);
+                navigation.navigate('VEHICLE INSURANCE');
             }
         } catch (error) {
-            console.error('Error updating details:', error);
-            Alert.alert('Update Failed', 'An error occurred while updating details.');
+            console.error('Error adding member:', error);
+            Alert.alert('Error', 'There was an error adding the member.');
+        } finally {
+            setLoading(false);  
         }
     };
 
+
     return (
         <View style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps={'handled'}>
             <Text style={styles.label}>Full Name</Text>
             <TextInput
                 style={styles.input}
@@ -54,6 +68,7 @@ const UpdateScreen = ({ route, navigation }) => {
             <TextInput
                 style={styles.input}
                 value={mobileNumber}
+                maxLength={10 }
                 onChangeText={setMobileNumber}
                 keyboardType="phone-pad"
             />
@@ -106,9 +121,19 @@ const UpdateScreen = ({ route, navigation }) => {
                 />
             )}
 
-            <TouchableOpacity onPress={handleUpdateDetails} style={styles.updateButton}>
-                <Text style={styles.updateButtonText}>Update Details</Text>
-            </TouchableOpacity>
+            
+            <TouchableOpacity
+                style={styles.updateButton}
+                onPress={handleUpdateDetails}
+                disabled={loading}  
+            >
+                {loading ? (
+                    <ActivityIndicator color="#FFFFFF" />
+                ) : (
+                        <Text style={styles.updateButtonText}>Update Details</Text>
+                )}
+                </TouchableOpacity>
+            </ScrollView>
         </View>
     );
 };
