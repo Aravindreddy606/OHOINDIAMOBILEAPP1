@@ -33,3 +33,8 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+/.vs/slnx.sqlite
+
+.vs/
+/.vs/VSWorkspaceState.json
+/.gitignore
