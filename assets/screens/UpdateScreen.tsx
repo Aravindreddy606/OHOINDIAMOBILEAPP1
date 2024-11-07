@@ -16,21 +16,21 @@ const UpdateScreen = ({ route, navigation }) => {
     const [endDate, setEndDate] = useState(new Date(member.EndDate));
     const [showStartDatePicker, setShowStartDatePicker] = useState(false);
     const [showEndDatePicker, setShowEndDatePicker] = useState(false);
-    const [loading, setLoading] = useState(false);  // Loading state
+    const [loading, setLoading] = useState(false);  
 
 
     const formatDate = (date) => {
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const month = String(date.getMonth() + 1).padStart(2, '0'); 
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
 
+
     const handleUpdateDetails = async () => {
-        setLoading(true);
+        setLoading(true); 
         try {
           
-
             const response = await fetchUpdateData('apiLambda/VehicleInsurance/update', {
                 "vehicleInsuranceId": member.VehicleInsuranceId,
                 "fullName": fullName,
@@ -40,18 +40,19 @@ const UpdateScreen = ({ route, navigation }) => {
                 "endDate": formatDate(endDate),
                 "VechicleNo": vehicleNumber
             });
-
+            console.log('RESPONSE', response);
             if (response) {
                 Alert.alert('Success', response.message);
-                navigation.navigate('VEHICLE INSURANCE')
+                navigation.navigate('VEHICLE INSURANCE');
             }
         } catch (error) {
             console.error('Error adding member:', error);
             Alert.alert('Error', 'There was an error adding the member.');
         } finally {
-            setLoading(false);  // Set loading to false after the request completes
+            setLoading(false);  
         }
     };
+
 
     return (
         <View style={styles.container}>
@@ -120,18 +121,18 @@ const UpdateScreen = ({ route, navigation }) => {
                 />
             )}
 
+            
             <TouchableOpacity
                 style={styles.updateButton}
                 onPress={handleUpdateDetails}
-                disabled={loading}
+                disabled={loading}  
             >
                 {loading ? (
                     <ActivityIndicator color="#FFFFFF" />
                 ) : (
                         <Text style={styles.updateButtonText}>Update Details</Text>
                 )}
-            </TouchableOpacity>
-
+                </TouchableOpacity>
             </ScrollView>
         </View>
     );
