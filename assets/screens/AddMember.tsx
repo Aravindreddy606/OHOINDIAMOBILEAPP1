@@ -82,22 +82,22 @@ const AddMember = ({ navigation }) => {
                 onChangeText={setMobileNumber}
                 keyboardType="phone-pad"
             />
-            <Text style={styles.label}>Insurance Provider</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Enter Insurance Provider"
-                value={vechileNumber}
-                onChangeText={setVechileNumber}
-            />
+         <Text style={styles.label}>Insurance Provider</Text>
+ <TextInput
+     style={styles.input}
+     placeholder="Enter Insurance Provider"
+         value={insuranceProvider}
+         onChangeText={ setInsuranceProvider}
+ />
 
-            <Text style={styles.label}>Vehicle Number</Text>
-            <TextInput
-                style={styles.input}
-                    placeholder="Enter Vehicle Number"
-                    value={insuranceProvider}
-                    maxLength={50}
-                onChangeText={setInsuranceProvider}
-            />
+ <Text style={styles.label}>Vehicle Number</Text>
+ <TextInput
+     style={styles.input}
+         placeholder="Enter Vehicle Number"
+         value={ vechileNumber}
+         maxLength={50}
+         onChangeText={setVechileNumber}
+ />
 
             <Text style={styles.label}>Start Date</Text>
             <TouchableOpacity onPress={() => setShowStartDatePicker(true)} style={styles.datePicker}>
